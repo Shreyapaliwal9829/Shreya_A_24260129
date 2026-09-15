@@ -1,12 +1,26 @@
+import 'package:flutter/material.dart';
+
 void main() {
-  int a = 10;
-  int b = 20;
+  runApp(const MaterialApp(home: RowDemo()));
+}
 
-  print("Before: a = $a, b = $b");
+class RowDemo extends StatelessWidget {
+  const RowDemo({super.key});
 
-  int temp = a;
-  a = b;
-  b = temp;
-
-  print("After: a = $a, b = $b");
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Row Widget")),
+      body: const Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text("Home", style: TextStyle(fontSize: 20)),
+            Text("About", style: TextStyle(fontSize: 20)),
+            Text("Contact", style: TextStyle(fontSize: 20)),
+          ],
+        ),
+      ),
+    );
+  }
 }

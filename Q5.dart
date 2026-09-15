@@ -1,10 +1,27 @@
+import 'package:flutter/material.dart';
+
 void main() {
-  double length = 10;
-  double width = 5;
+  runApp(const MaterialApp(home: IconsDemo()));
+}
 
-  double area = length * width;
-  double perimeter = 2 * (length + width);
+class IconsDemo extends StatelessWidget {
+  const IconsDemo({super.key});
 
-  print("Area: $area");
-  print("Perimeter: $perimeter");
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Icon Widget")),
+      body: const Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Icon(Icons.home, size: 50),
+            Icon(Icons.favorite, size: 50),
+            Icon(Icons.star, size: 50),
+            Icon(Icons.person, size: 50),
+          ],
+        ),
+      ),
+    );
+  }
 }
