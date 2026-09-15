@@ -1,24 +1,38 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MaterialApp(home: StudentInfo()));
+void main() => runApp(const MaterialApp(home: SumPage()));
+
+class SumPage extends StatefulWidget {
+  const SumPage({super.key});
+
+  @override
+  State<SumPage> createState() => _SumPageState();
 }
 
-class StudentInfo extends StatelessWidget {
-  const StudentInfo({super.key});
+class _SumPageState extends State<SumPage> {
+  final a = TextEditingController();
+  final b = TextEditingController();
+  String result = '';
+
+  void calculate() {
+    double x = double.tryParse(a.text) ?? 0;
+    double y = double.tryParse(b.text) ?? 0;
+    setState(() => result = 'Sum = ${x + y}');
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Student Information")),
-      body: const Center(
+      appBar: AppBar(title: const Text('Q2 - Sum')),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Name: Shreya Paliwal", style: TextStyle(fontSize: 22)),
-            Text("Course: BCA", style: TextStyle(fontSize: 22)),
-            Text("Semester: 4th Semester", style: TextStyle(fontSize: 22)),
-            Text("College: COER University", style: TextStyle(fontSize: 22)),
+            TextField(controller: a, keyboardType: TextInputType.number, decoration: const InputDecoration(labelText: 'First number')),
+            TextField(controller: b, keyboardType: TextInputType.number, decoration: const InputDecoration(labelText: 'Second number')),
+            const SizedBox(height: 20),
+            ElevatedButton(onPressed: calculate, child: const Text('Calculate Sum')),
+            Text(result, style: const TextStyle(fontSize: 20)),
           ],
         ),
       ),

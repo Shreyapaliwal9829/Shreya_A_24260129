@@ -1,29 +1,47 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MaterialApp(home: MixedWidgets()));
+void main() => runApp(const MaterialApp(home: FormPage()));
+
+class FormPage extends StatefulWidget {
+  const FormPage({super.key});
+
+  @override
+  State<FormPage> createState() => _FormPageState();
 }
 
-class MixedWidgets extends StatelessWidget {
-  const MixedWidgets({super.key});
+class _FormPageState extends State<FormPage> {
+  final name = TextEditingController();
+  String message = '';
+
+  void submit() {
+    setState(() => message = 'Submitted: ${name.text}');
+  }
+
+  void reset() {
+    name.clear();
+    setState(() => message = '');
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Text Image Icon")),
-      body: Center(
+      appBar: AppBar(title: const Text('Q6 - Simple Form')),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text("Flutter Widgets", style: TextStyle(fontSize: 26)),
-            const SizedBox(height: 15),
-            Image.network(
-              "https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg",
-              width: 180,
-              height: 180,
+            TextField(controller: name, decoration: const InputDecoration(labelText: 'Enter name')),
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(onPressed: submit, child: const Text('Submit')),
+                const SizedBox(width: 15),
+                ElevatedButton(onPressed: reset, child: const Text('Reset')),
+              ],
             ),
-            const SizedBox(height: 15),
-            const Icon(Icons.flutter_dash, size: 55),
+            const SizedBox(height: 20),
+            Text(message, style: const TextStyle(fontSize: 18)),
           ],
         ),
       ),

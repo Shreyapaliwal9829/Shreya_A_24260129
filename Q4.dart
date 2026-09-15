@@ -1,22 +1,32 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MaterialApp(home: ImageDemo()));
+void main() => runApp(const MaterialApp(home: TextChangePage()));
+
+class TextChangePage extends StatefulWidget {
+  const TextChangePage({super.key});
+
+  @override
+  State<TextChangePage> createState() => _TextChangePageState();
 }
 
-class ImageDemo extends StatelessWidget {
-  const ImageDemo({super.key});
+class _TextChangePageState extends State<TextChangePage> {
+  String text = 'Hello Flutter';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Image Widget")),
+      appBar: AppBar(title: const Text('Q4 - Change Text')),
       body: Center(
-        child: Image.network(
-          "https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg",
-          width: 250,
-          height: 250,
-          fit: BoxFit.cover,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(text, style: const TextStyle(fontSize: 25)),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () => setState(() => text = 'Text Changed!'),
+              child: const Text('Change Text'),
+            ),
+          ],
         ),
       ),
     );

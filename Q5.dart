@@ -1,25 +1,22 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MaterialApp(home: IconsDemo()));
-}
+void main() => runApp(const MaterialApp(home: SnackPage()));
 
-class IconsDemo extends StatelessWidget {
-  const IconsDemo({super.key});
+class SnackPage extends StatelessWidget {
+  const SnackPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Icon Widget")),
-      body: const Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Icon(Icons.home, size: 50),
-            Icon(Icons.favorite, size: 50),
-            Icon(Icons.star, size: 50),
-            Icon(Icons.person, size: 50),
-          ],
+      appBar: AppBar(title: const Text('Q5 - SnackBar')),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Button pressed successfully!')),
+            );
+          },
+          child: const Text('Show Message'),
         ),
       ),
     );
