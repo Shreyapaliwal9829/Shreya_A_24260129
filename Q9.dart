@@ -1,38 +1,20 @@
 import 'package:flutter/material.dart';
-
-void main() => runApp(const MaterialApp(home: EvenOddPage()));
-
-class EvenOddPage extends StatefulWidget {
-  const EvenOddPage({super.key});
-
-  @override
-  State<EvenOddPage> createState() => _EvenOddPageState();
-}
-
-class _EvenOddPageState extends State<EvenOddPage> {
-  final number = TextEditingController();
-  String result = '';
-
-  void check() {
-    int n = int.tryParse(number.text) ?? 0;
-    setState(() => result = n % 2 == 0 ? 'Even Number' : 'Odd Number');
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Q9 - Even or Odd')),
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          children: [
-            TextField(controller: number, keyboardType: TextInputType.number, decoration: const InputDecoration(labelText: 'Enter number')),
-            const SizedBox(height: 15),
-            ElevatedButton(onPressed: check, child: const Text('Check')),
-            Text(result, style: const TextStyle(fontSize: 20)),
-          ],
-        ),
-      ),
-    );
-  }
+void main() => runApp(MaterialApp(home: MainScreen()));
+class MainScreen extends StatefulWidget { @override State<MainScreen> createState() => _MainScreenState(); }
+class _MainScreenState extends State<MainScreen> {
+  int index = 0;
+  final screens = [Center(child: Text('Home Screen')), Center(child: Text('Profile Screen')), Center(child: Text('Settings Screen'))];
+  @override Widget build(BuildContext context) => Scaffold(
+    appBar: AppBar(title: Text('Bottom Navigation')),
+    body: screens[index],
+    bottomNavigationBar: BottomNavigationBar(
+      currentIndex: index,
+      onTap: (i) => setState(() => index = i),
+      items: [
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+        BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+        BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
+      ],
+    ),
+  );
 }

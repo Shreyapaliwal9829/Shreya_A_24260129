@@ -1,44 +1,24 @@
 import 'package:flutter/material.dart';
-
-void main() => runApp(const MaterialApp(home: NumberTypePage()));
-
-class NumberTypePage extends StatefulWidget {
-  const NumberTypePage({super.key});
-
-  @override
-  State<NumberTypePage> createState() => _NumberTypePageState();
-}
-
-class _NumberTypePageState extends State<NumberTypePage> {
-  final number = TextEditingController();
-  String result = '';
-
-  void check() {
-    double n = double.tryParse(number.text) ?? 0;
-    if (n > 0) {
-      setState(() => result = 'Positive Number');
-    } else if (n < 0) {
-      setState(() => result = 'Negative Number');
-    } else {
-      setState(() => result = 'Zero');
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Q10 - Number Type')),
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          children: [
-            TextField(controller: number, keyboardType: TextInputType.number, decoration: const InputDecoration(labelText: 'Enter number')),
-            const SizedBox(height: 15),
-            ElevatedButton(onPressed: check, child: const Text('Check')),
-            Text(result, style: const TextStyle(fontSize: 20)),
-          ],
-        ),
-      ),
-    );
-  }
+void main() => runApp(MaterialApp(home: MainScreen()));
+class MainScreen extends StatefulWidget { @override State<MainScreen> createState() => _MainScreenState(); }
+class _MainScreenState extends State<MainScreen> {
+  int index = 0;
+  final screens = [
+    Center(child: Text('Screen 1: Home')),
+    Center(child: Text('Screen 2: Courses')),
+    Center(child: Text('Screen 3: Contact'))
+  ];
+  @override Widget build(BuildContext context) => Scaffold(
+    appBar: AppBar(title: Text('Three Screens')),
+    body: screens[index],
+    bottomNavigationBar: BottomNavigationBar(
+      currentIndex: index,
+      onTap: (i) => setState(() => index = i),
+      items: [
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+        BottomNavigationBarItem(icon: Icon(Icons.book), label: 'Courses'),
+        BottomNavigationBarItem(icon: Icon(Icons.contact_mail), label: 'Contact'),
+      ],
+    ),
+  );
 }

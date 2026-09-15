@@ -1,34 +1,14 @@
 import 'package:flutter/material.dart';
-
-void main() => runApp(const MaterialApp(home: TextChangePage()));
-
-class TextChangePage extends StatefulWidget {
-  const TextChangePage({super.key});
-
-  @override
-  State<TextChangePage> createState() => _TextChangePageState();
+void main() => runApp(MaterialApp(home: LoginScreen()));
+class LoginScreen extends StatelessWidget {
+  @override Widget build(BuildContext context) => Scaffold(
+    appBar: AppBar(title: Text('Login')),
+    body: Center(child: ElevatedButton(
+      onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => HomeScreen())),
+      child: Text('Login'),
+    )),
+  );
 }
-
-class _TextChangePageState extends State<TextChangePage> {
-  String text = 'Hello Flutter';
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Q4 - Change Text')),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(text, style: const TextStyle(fontSize: 25)),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () => setState(() => text = 'Text Changed!'),
-              child: const Text('Change Text'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+class HomeScreen extends StatelessWidget {
+  @override Widget build(BuildContext context) => Scaffold(appBar: AppBar(title: Text('Home')), body: Center(child: Text('Login Successful')));
 }

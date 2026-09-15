@@ -1,50 +1,16 @@
 import 'package:flutter/material.dart';
-
-void main() => runApp(const MaterialApp(home: FormPage()));
-
-class FormPage extends StatefulWidget {
-  const FormPage({super.key});
-
-  @override
-  State<FormPage> createState() => _FormPageState();
+void main() => runApp(MaterialApp(home: HomeScreen()));
+class HomeScreen extends StatelessWidget {
+  @override Widget build(BuildContext context) => Scaffold(
+    appBar: AppBar(title: Text('Navigator.push')),
+    body: Center(child: ElevatedButton(
+      onPressed: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => NewScreen()));
+      },
+      child: Text('Open New Screen'),
+    )),
+  );
 }
-
-class _FormPageState extends State<FormPage> {
-  final name = TextEditingController();
-  String message = '';
-
-  void submit() {
-    setState(() => message = 'Submitted: ${name.text}');
-  }
-
-  void reset() {
-    name.clear();
-    setState(() => message = '');
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Q6 - Simple Form')),
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          children: [
-            TextField(controller: name, decoration: const InputDecoration(labelText: 'Enter name')),
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(onPressed: submit, child: const Text('Submit')),
-                const SizedBox(width: 15),
-                ElevatedButton(onPressed: reset, child: const Text('Reset')),
-              ],
-            ),
-            const SizedBox(height: 20),
-            Text(message, style: const TextStyle(fontSize: 18)),
-          ],
-        ),
-      ),
-    );
-  }
+class NewScreen extends StatelessWidget {
+  @override Widget build(BuildContext context) => Scaffold(appBar: AppBar(title: Text('New Screen')), body: Center(child: Text('Opened using Navigator.push()')));
 }
