@@ -1,24 +1,13 @@
 import 'package:flutter/material.dart';
-void main() => runApp(MaterialApp(home: MainScreen()));
-class MainScreen extends StatefulWidget { @override State<MainScreen> createState() => _MainScreenState(); }
-class _MainScreenState extends State<MainScreen> {
-  int index = 0;
-  final screens = [
-    Center(child: Text('Screen 1: Home')),
-    Center(child: Text('Screen 2: Courses')),
-    Center(child: Text('Screen 3: Contact'))
-  ];
-  @override Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title: Text('Three Screens')),
-    body: screens[index],
-    bottomNavigationBar: BottomNavigationBar(
-      currentIndex: index,
-      onTap: (i) => setState(() => index = i),
-      items: [
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-        BottomNavigationBarItem(icon: Icon(Icons.book), label: 'Courses'),
-        BottomNavigationBarItem(icon: Icon(Icons.contact_mail), label: 'Contact'),
-      ],
-    ),
-  );
+void main()=>runApp(MaterialApp(home:CounterScreen()));
+class CounterScreen extends StatefulWidget{
+State<CounterScreen> createState()=>_CounterScreenState();
+}
+class _CounterScreenState extends State<CounterScreen>{
+int count=0;
+Widget build(BuildContext c)=>Scaffold(appBar:AppBar(title:Text('StatefulWidget')),
+body:Center(child:Column(mainAxisAlignment:MainAxisAlignment.center,children:[
+Text('Counter: $count',style:TextStyle(fontSize:25)),
+ElevatedButton(onPressed:()=>setState(()=>count++),child:Text('Increase')),
+])));
 }

@@ -1,20 +1,10 @@
 import 'package:flutter/material.dart';
-void main() => runApp(MaterialApp(home: MainScreen()));
-class MainScreen extends StatefulWidget { @override State<MainScreen> createState() => _MainScreenState(); }
-class _MainScreenState extends State<MainScreen> {
-  int index = 0;
-  final screens = [Center(child: Text('Home Screen')), Center(child: Text('Profile Screen')), Center(child: Text('Settings Screen'))];
-  @override Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title: Text('Bottom Navigation')),
-    body: screens[index],
-    bottomNavigationBar: BottomNavigationBar(
-      currentIndex: index,
-      onTap: (i) => setState(() => index = i),
-      items: [
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-        BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-        BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
-      ],
-    ),
-  );
+void main()=>runApp(MaterialApp(home:ProductScreen()));
+class Product{String name;double price;Product(this.name,this.price);}
+class ProductScreen extends StatelessWidget{
+final products=[Product('Laptop',55000),Product('Phone',25000),
+Product('Headphones',2000),Product('Keyboard',1500)];
+Widget build(BuildContext c)=>Scaffold(appBar:AppBar(title:Text('Products')),
+body:ListView.builder(itemCount:products.length,itemBuilder:(_,i)=>ListTile(
+title:Text(products[i].name),trailing:Text('₹${products[i].price}'))));
 }
