@@ -1,7 +1,23 @@
 import 'package:flutter/material.dart';
-void main()=>runApp(MaterialApp(home:Scaffold(
-appBar:AppBar(title:Text('Horizontal List')),
-body:ListView.builder(scrollDirection:Axis.horizontal,itemCount:10,
-itemBuilder:(_,i)=>Container(width:120,margin:EdgeInsets.all(8),color:Colors.blue,
-child:Center(child:Text('Item ${i+1}',style:TextStyle(color:Colors.white))))),
-)));
+import 'package:shared_preferences/shared_preferences.dart';
+
+void main()=>runApp(MaterialApp(home:DarkScreen()));
+class DarkScreen extends StatefulWidget{
+ State<DarkScreen> createState()=>_DarkScreenState();
+}
+class _DarkScreenState extends State<DarkScreen>{
+ bool dark=false;
+ @override void initState(){super.initState();load();}
+ Future<void> load()async{
+  final p=await SharedPreferences.getInstance();
+  setState(()=>dark=p.getBool('dark')??false);
+ }
+ Future<void> change(bool v)async{
+  final p=await SharedPreferences.getInstance();
+  setState(()=>dark=v); await p.setBool('dark',v);
+ }
+ Widget build(BuildContext c)=>Scaffold(
+  appBar:AppBar(title:Text('Dark Mode')),
+  body:Center(child:SwitchListTile(title:Text('Dark Mode'),
+    value:dark,onChanged:change)));
+}

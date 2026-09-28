@@ -1,10 +1,23 @@
 import 'package:flutter/material.dart';
-void main()=>runApp(MaterialApp(home:ProductScreen()));
-class Product{String name;double price;Product(this.name,this.price);}
-class ProductScreen extends StatelessWidget{
-final products=[Product('Laptop',55000),Product('Phone',25000),
-Product('Headphones',2000),Product('Keyboard',1500)];
-Widget build(BuildContext c)=>Scaffold(appBar:AppBar(title:Text('Products')),
-body:ListView.builder(itemCount:products.length,itemBuilder:(_,i)=>ListTile(
-title:Text(products[i].name),trailing:Text('₹${products[i].price}'))));
+import 'package:shared_preferences/shared_preferences.dart';
+
+void main()=>runApp(MaterialApp(home:SubjectsScreen()));
+class SubjectsScreen extends StatefulWidget{
+ State<SubjectsScreen> createState()=>_SubjectsScreenState();
+}
+class _SubjectsScreenState extends State<SubjectsScreen>{
+ List<String> subjects=['Java','Flutter','Python'];
+ @override void initState(){super.initState();load();}
+ Future<void> load()async{
+  final p=await SharedPreferences.getInstance();
+  setState(()=>subjects=p.getStringList('subjects')??subjects);
+ }
+ Future<void> save()async{
+  final p=await SharedPreferences.getInstance();
+  await p.setStringList('subjects',subjects);
+ }
+ Widget build(BuildContext c)=>Scaffold(
+ appBar:AppBar(title:Text('Favourite Subjects')),
+ body:ListView(children:subjects.map((s)=>ListTile(title:Text(s))).toList()),
+ floatingActionButton:FloatingActionButton(onPressed:save,child:Icon(Icons.save)));
 }
